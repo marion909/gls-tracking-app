@@ -1,0 +1,84 @@
+<Window x:Class="GlsTrackingApp.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Datenbank-Einstellungen - GLS Tracking" Height="600" Width="700"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize" MinHeight="500" MinWidth="600">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Datenbank-Einstellungen" FontSize="20" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        
+        <!-- Settings Content -->
+        <TabControl x:Name="SettingsTabControl" Grid.Row="1" Margin="0,0,0,20">
+            <!-- Database Settings -->
+            <TabItem Header="Datenbank">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="SQLite-Datenbank-Konfiguration" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <Label x:Name="DatabasePathLabel" Content="Pfad zur SQLite-Datenbank (.db):" FontWeight="Bold"/>
+                                <Grid Margin="0,5,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBox x:Name="DatabasePathTextBox" Grid.Column="0" 
+                                             Height="25" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <Button x:Name="BrowseDatabaseButton" Grid.Column="1" 
+                                            Content="Durchsuchen..." Width="100" Height="25"
+                                            Click="BrowseDatabaseButton_Click"/>
+                                </Grid>
+                                
+                                <Button x:Name="TestConnectionButton" Content="Verbindung testen" 
+                                        Width="150" Height="30" Margin="0,10,0,0" 
+                                        HorizontalAlignment="Left" Click="TestConnectionButton_Click"/>
+                                
+                                <TextBlock Text="Hinweis: Änderungen werden nach einem Neustart der Anwendung wirksam." 
+                                           FontSize="11" Foreground="Gray" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Datenbank-Information" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <TextBlock x:Name="CurrentDbPathInfo" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,5"/>
+                                <TextBlock x:Name="DbStatusInfo" TextWrapping="Wrap" FontSize="11"/>
+                            </StackPanel>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Wartung" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <Button x:Name="CleanupDatabaseButton" Content="Datenbank bereinigen" 
+                                        Width="180" Height="30" Margin="0,0,0,10" 
+                                        HorizontalAlignment="Left" Click="CleanupDatabaseButton_Click"/>
+                                <TextBlock Text="Löscht alle Sendungen, die älter als 90 Tage sind" 
+                                           FontSize="10" Foreground="Gray" Margin="0,0,0,10"/>
+                                
+                                <Button x:Name="OpenDatabaseFolderButton" Content="Datenbankordner öffnen" 
+                                        Width="180" Height="30" 
+                                        HorizontalAlignment="Left" Click="OpenDatabaseFolderButton_Click"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="ResetButton" Content="Zurücksetzen" Width="100" Height="30" 
+                    Margin="0,0,10,0" Click="ResetButton_Click"/>
+            <Button x:Name="SaveSettingsButton" Content="Speichern" Width="100" Height="30" 
+                    Margin="0,0,10,0" Click="SaveSettingsButton_Click" IsDefault="True"/>
+            <Button x:Name="CancelButton" Content="Abbrechen" Width="100" Height="30" 
+                    Click="CancelButton_Click" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

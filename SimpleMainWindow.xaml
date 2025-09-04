@@ -1,0 +1,110 @@
+<Window x:Class="GlsTrackingApp.SimpleMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GLS Paket Tracking" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        Icon="Resources/icon.ico"
+        Closing="Window_Closing"
+        Closed="Window_Closed">
+    <Window.Resources>
+        <!-- Menu Style -->
+        <Style TargetType="MenuItem">
+            <Setter Property="Height" Value="25"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Menu Bar -->
+        <Menu Grid.Row="0" Background="LightGray">
+            <MenuItem Header="_Datei">
+                <MenuItem Header="_Datenbank-Einstellungen..." Click="DatabaseSettingsMenuItem_Click"/>
+                <MenuItem Header="_GLS Portal-Einstellungen..." Click="GlsPortalSettingsMenuItem_Click"/>
+                <Separator/>
+                <MenuItem Header="_Beenden" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="GLS Paket Tracking" 
+                   FontSize="24" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        
+        <!-- Status -->
+        <TextBlock Grid.Row="1" x:Name="StatusText" Text="Bereit für Tracking..." 
+                   Margin="0,0,0,10" FontWeight="Bold"/>
+        
+        <!-- Progress Bar -->
+        <ProgressBar Grid.Row="1" x:Name="ProgressBar" 
+                     Height="20" Margin="0,30,0,0" Visibility="Collapsed"/>
+        
+        <!-- Stored Trackings -->
+        <GroupBox Grid.Row="2" Header="Gespeicherte Sendungen">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Filter Options -->
+                <StackPanel Grid.Row="0" Orientation="Vertical" Margin="5">
+                    <!-- Suchfeld -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="🔍 Suche:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBox x:Name="SearchTextBox" Width="200" Height="22" 
+                                 TextChanged="SearchTextBox_TextChanged"
+                                 ToolTip="Nach Kundenname oder Tracking-Nummer suchen"/>
+                        <Button x:Name="ClearSearchButton" Content="✕" Width="22" Height="22" 
+                                Margin="2,0,0,0" Click="ClearSearchButton_Click"
+                                ToolTip="Suche löschen"/>
+                    </StackPanel>
+                    
+                    <!-- Filter Checkboxen -->
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="HideDeliveredCheckBox" Content="Zugestellte ausblenden" 
+                                  Margin="0,0,15,0" Checked="HideDeliveredCheckBox_Changed" Unchecked="HideDeliveredCheckBox_Changed"/>
+                        <CheckBox x:Name="HideCancelledCheckBox" Content="Gecancelled ausblenden" 
+                                  Margin="0,0,15,0" Checked="HideCancelledCheckBox_Changed" Unchecked="HideCancelledCheckBox_Changed"/>
+                        <TextBlock x:Name="TrackingCountLabel" Text="0 / 0 Sendungen" 
+                                   Margin="15,0,0,0" VerticalAlignment="Center" 
+                                   FontWeight="Normal" Foreground="Gray"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                <ListView x:Name="StoredTrackingsListView" Grid.Row="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <TextBlock Text="{Binding DisplayTextWithDate}" FontWeight="Bold" 
+                                          Foreground="{Binding StatusColor}"/>
+                                <TextBlock Text="{Binding LastStatus}" FontSize="10"/>
+                                <TextBlock Text="{Binding LastUpdate, StringFormat='Aktualisiert: {0:dd.MM.yyyy HH:mm}'}" 
+                                          FontSize="9" Foreground="LightGray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button x:Name="RefreshAllButton" Content="Alle aktualisieren" Width="120" Height="25" 
+                            Click="RefreshAllButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

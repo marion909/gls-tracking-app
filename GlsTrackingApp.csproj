@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>true</GenerateTargetFrameworkAttribute>
+    
+    <!-- Version Information -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    
+    <!-- Application Information -->
+    <AssemblyTitle>GLS Paket Tracking</AssemblyTitle>
+    <AssemblyDescription>Eine Anwendung zum Verfolgen von GLS-Paketsendungen mit Speicherfunktion</AssemblyDescription>
+    <AssemblyProduct>GLS Paket Tracking</AssemblyProduct>
+    <AssemblyCompany>GLS Tracking Solutions</AssemblyCompany>
+    <AssemblyCopyright>Copyright © 2025</AssemblyCopyright>
+    
+    <!-- Application Icon -->
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    
+    <!-- Publishing Configuration -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.35.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="139.0.7258.15400" />
+    <PackageReference Include="Selenium.Support" Version="4.35.0" />
+    <PackageReference Include="System.Data.OleDb" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
+
+</Project>

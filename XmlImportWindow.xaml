@@ -1,0 +1,118 @@
+<Window x:Class="GlsTrackingApp.XmlImportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="XML Import - GLS Tracking" Height="500" Width="700"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="XML-Datei importieren" 
+                   FontSize="18" FontWeight="Bold" 
+                   Margin="0,0,0,15"/>
+        
+        <!-- File Selection -->
+        <GroupBox Grid.Row="1" Header="Datei auswählen" Margin="0,0,0,15">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBox x:Name="FilePathTextBox" Grid.Column="0" 
+                         IsReadOnly="True" Margin="0,0,10,0"
+                         VerticalAlignment="Center"/>
+                
+                <Button x:Name="BrowseFileButton" Grid.Column="1" 
+                        Content="Durchsuchen..." 
+                        Width="100" Height="30"
+                        Click="BrowseFileButton_Click"/>
+            </Grid>
+        </GroupBox>
+        
+        <!-- Sendungen List -->
+        <GroupBox Grid.Row="2" Header="Sendungen zur Auswahl" Margin="0,0,0,15">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Selection Buttons -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="SelectAllButton" Content="Alle auswählen" 
+                            Width="100" Height="25" Margin="0,0,10,0"
+                            Click="SelectAllButton_Click"/>
+                    <Button x:Name="SelectNoneButton" Content="Alle abwählen" 
+                            Width="100" Height="25"
+                            Click="SelectNoneButton_Click"/>
+                    <TextBlock Text="|" VerticalAlignment="Center" Margin="10,0"/>
+                    <TextBlock x:Name="StatusText" Text="Keine Datei geladen" 
+                               VerticalAlignment="Center" FontStyle="Italic"/>
+                </StackPanel>
+                
+                <!-- List -->
+                <ListView x:Name="SendungenListView" Grid.Row="1"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.Header>
+                                    <CheckBox x:Name="HeaderCheckBox" 
+                                              Checked="HeaderCheckBox_Checked"
+                                              Unchecked="HeaderCheckBox_Unchecked"/>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsSelected}" 
+                                                  Checked="ItemCheckBox_Changed"
+                                                  Unchecked="ItemCheckBox_Changed"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Sendungsnummer" Width="150" 
+                                            DisplayMemberBinding="{Binding ParcelNumber}"/>
+                            <GridViewColumn Header="Empfänger" Width="250" 
+                                            DisplayMemberBinding="{Binding Consignee}"/>
+                            <GridViewColumn Header="Status" Width="100" 
+                                            DisplayMemberBinding="{Binding Status}"/>
+                            <GridViewColumn Header="Ort" Width="120" 
+                                            DisplayMemberBinding="{Binding City}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+        
+        <!-- Target Date -->
+        <GroupBox Grid.Row="3" Header="Zieltermin (optional)" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Content="Termindatum:" VerticalAlignment="Center"/>
+                <DatePicker x:Name="TargetDatePicker" Width="150" 
+                            VerticalAlignment="Center" Margin="10,0"/>
+                <TextBlock Text="(Leer lassen für keinen Termin)" 
+                           VerticalAlignment="Center" FontStyle="Italic" 
+                           Foreground="Gray" Margin="10,0"/>
+            </StackPanel>
+        </GroupBox>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button x:Name="ImportButton" Content="Importieren" 
+                    Width="100" Height="35" Margin="0,0,10,0"
+                    IsEnabled="False"
+                    Click="ImportButton_Click"/>
+            <Button x:Name="CancelButton" Content="Abbrechen" 
+                    Width="100" Height="35"
+                    Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
