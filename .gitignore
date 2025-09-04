@@ -182,6 +182,9 @@ _pkginfo.txt
 *.appxbundle
 *.appxupload
 
+# Allow releases directory for GitHub releases
+!releases/
+
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache

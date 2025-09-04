@@ -92,19 +92,29 @@ Die App verwendet mehrere Ansätze zum Tracking:
 ## Projektstruktur
 
 ```
+```
 GlsTrackingApp/
-├── Models/
-│   └── TrackingModels.cs          # Datenmodelle für Tracking-Informationen
-├── Services/
-│   └── GlsTrackingService.cs      # Service für GLS API-Kommunikation
-├── ViewModels/
-│   └── MainViewModel.cs           # ViewModel mit Geschäftslogik
-├── Converters/
-│   └── ValueConverters.cs         # XAML Value Converter
-├── MainWindow.xaml                # Haupt-UI Definition
-├── MainWindow.xaml.cs            # Code-Behind für UI
-├── App.xaml.cs                   # App-Startup und DI-Container
-└── GlsTrackingApp.csproj         # Projekt-Konfiguration
+├── Security/                      # Verschlüsselung und Authentifizierung
+│   ├── EncryptionService.cs       # AES-256 Verschlüsselungslogik
+│   └── LoginDialog.cs             # Master-Passwort Authentifizierung
+├── Services/                      # Geschäftslogik-Services
+│   ├── GlsAuthenticationService.cs # GLS Portal Authentifizierung
+│   ├── SeleniumTrackingService.cs  # Browser-Automation für Tracking
+│   ├── SqliteDatabaseService.cs    # Lokale Datenbank-Operationen
+│   ├── TrackingService.cs          # Haupt-Tracking-Service
+│   └── TrackingStorageService.cs   # Daten-Persistierung
+├── Models/                        # Datenmodelle
+│   └── TrackingModels.cs          # Tracking-Datenstrukturen
+├── Config/                        # Konfiguration
+│   └── AppConfig.cs               # Verschlüsselte App-Konfiguration
+├── Resources/                     # Anwendungsressourcen
+│   └── icon.ico                   # Anwendungs-Icon
+├── SimpleMainWindow.xaml          # Haupt-UI Definition
+├── SimpleMainWindow.xaml.cs       # Code-Behind für Hauptfenster
+├── SettingsWindow.xaml            # Einstellungen-UI
+├── SettingsWindow.xaml.cs         # Code-Behind für Einstellungen
+├── App.xaml.cs                    # App-Startup und Initialisierung
+└── GlsTrackingApp.csproj          # Projekt-Konfiguration
 ```
 
 ## Dependencies
